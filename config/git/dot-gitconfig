@@ -1,0 +1,12 @@
+[user]
+	name = 'mason-perdue'
+	email = 220426478+mason-perdue@users.noreply.github.com
+	signingkey = /home/masonp/.ssh/id_ed25519.pub
+[core]
+	editor = helix
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh

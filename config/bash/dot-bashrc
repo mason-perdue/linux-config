@@ -1,0 +1,80 @@
+[[ $- != *i* ]] && return
+
+PS1='\[\e[32m\]\u\[\e[38;5;26m\]@\h\[\e[0m\] \[\e[38;5;220m\][\w]\[\e[0m\] \[\e[92m\]\$\[\e[0m\] '
+
+export EDITOR='helix'
+
+alias hx=helix
+alias grep='grep --color=auto'
+alias ls='ls --color=auto'
+alias ll='ls -lA'
+alias la='ls -A'
+alias ip='ip -c'
+alias cp='cp -r'
+alias cu='cd ..'
+alias cb='cd -'
+alias mkdir='mkdir -p'
+alias tree='tree -alC --dirsfirst'
+alias formatImages="exiftool -v '-FileName<CreateDate' -d '%Y%m%d-%H%M%S%%-03.c.%%e' ."
+alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename}.%e" "-filename<${Artist;s!/!_!g} - Untitled.%e" "-filename<Unknown Artist - ${Title;s!/!_!g}.%e" "-filename<${Artist;s!/!_!g} - ${Title;s!/!_!g}.%e" *.m4a'
+alias countFiles='ls -1A | wc -l'
+alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
+
+
+update(){
+	yes | sudo pacman -Syu
+	yes | sudo pacman -Scc
+	cd ~/linux-config/config
+	stow -t ~/ --restow --dotfiles *
+	source ~/.bashrc
+	cd - > /dev/zero
+}
+
+setupScan(){
+	usbipd.exe list
+	echo "Enter BUSID (4-3): "
+	read busid
+	usbipd.exe attach --wsl --busid $busid
+	sleep 1
+	lsusb
+	echo "Enter Dev Path (001/003): "
+	read devPath
+	sudo chown masonp:masonp /dev/bus/usb/$devPath
+}
+
+docScan(){
+	mkdir tmp
+	cd tmp
+	scanimage --format=pnm --verbose --progress --resolution=300 --batch=out%03d.pnm --device='fujitsu:ScanSnap S1500:272145' --source 'ADF Duplex'
+	magick out*.pnm -deskew 40% -density 150 -verbose out.pdf
+	mv out.pdf ../
+	rm *.pnm
+	cd ..
+	rmdir tmp
+}
+
+mov2mp4(){
+	for f in *.MOV; do
+		ffmpeg -i $f $f.mp4
+	done
+	rename ".MOV.mp4" ".mp4" *
+	# rm *.MOV
+}
+
+folder(){
+	# use rename -av "/" "" * to remove slashes and prevent dir creation
+	for f in *; do
+		mkdir "${f%%-*}"
+		mv $f "${f%%-*}"/
+	done
+}
+
+lexe(){
+	if [ "$1" == "c" ]; then
+		latexmk -c
+	elif ["$1" == "C" ]; then
+		latexmk -C
+	else
+		latexmk --auxdir=aux --pvc --pdf "$1"
+	fi
+}
