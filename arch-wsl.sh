@@ -45,6 +45,7 @@ git log
 ## GitHub
 ssh -T git@github.com
 git remote add origin git@github.com:mason-perdue/repo.git
+git pull origin main
 
 ## Config Files
 rm ~/.bashrc

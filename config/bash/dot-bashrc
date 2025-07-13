@@ -82,11 +82,20 @@ lexe(){
 	fi
 }
 
-gitCommit(){
+gitPush(){
 	if [ -n "$1" ]; then
 		git add --all
 		git commit -m "$1"
 		git push origin main
+	else
+		echo "Error: Input Commit Message"
+	fi
+}
+
+gitCommit(){
+	if [ -n "$1" ]; then
+		git add --all
+		git commit -m "$1"
 	else
 		echo "Error: Input Commit Message"
 	fi
