@@ -72,7 +72,7 @@ lexe(){
 	if [ -n "$1" ]; then
 		if [ "$1" == "c" ]; then
 			latexmk -c
-		elif ["$1" == "C" ]; then
+		elif [ "$1" == "C" ]; then
 			latexmk -C
 		else
 			latexmk --auxdir=aux --pvc --pdf "$1"
