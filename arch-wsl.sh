@@ -37,8 +37,14 @@ usbipd.exe detach --busid [busid]
 ## SSH
 ssh-keygen -t ed25519 -C "220426478+mason-perdue@users.noreply.github.com"
 
+## GIT
+git init
+git status
+git log
+
 ## GitHub
 ssh -T git@github.com
+git remote add origin git@github.com:mason-perdue/repo.git
 
 ## Config Files
 rm ~/.bashrc

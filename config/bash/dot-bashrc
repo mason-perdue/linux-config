@@ -20,7 +20,6 @@ alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename
 alias countFiles='ls -1A | wc -l'
 alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
 
-
 update(){
 	yes | sudo pacman -Syu
 	yes | sudo pacman -Scc
@@ -70,11 +69,25 @@ folder(){
 }
 
 lexe(){
-	if [ "$1" == "c" ]; then
-		latexmk -c
-	elif ["$1" == "C" ]; then
-		latexmk -C
+	if [ -n "$1" ]; then
+		if [ "$1" == "c" ]; then
+			latexmk -c
+		elif ["$1" == "C" ]; then
+			latexmk -C
+		else
+			latexmk --auxdir=aux --pvc --pdf "$1"
+		fi
 	else
-		latexmk --auxdir=aux --pvc --pdf "$1"
+		echo "Error: Input file name"
+	fi
+}
+
+gitCommit(){
+	if [ -n "$1" ]; then
+		git add --all
+		git commit -m "$1"
+		git push origin main
+	else
+		echo "Error: Input Commit Message"
 	fi
 }
