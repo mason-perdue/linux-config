@@ -6,6 +6,7 @@
 	# https://wiki.archlinux.org/title/Kernel_parameters#Parameter_list
 	# Secure Boot
 	# Delete Gnome Extras - https://archlinux.org/groups/x86_64/gnome/
+	# No stow and no config directory
 
 
 ### WSL

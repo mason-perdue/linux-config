@@ -2,9 +2,8 @@
 
 PS1='\[\e[32m\]\u\[\e[38;5;26m\]@\h\[\e[0m\] \[\e[38;5;220m\][\w]\[\e[0m\] \[\e[92m\]\$\[\e[0m\] '
 
-export EDITOR='helix'
+export EDITOR='vim'
 
-alias hx=helix
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias ll='ls -lA'
@@ -15,14 +14,18 @@ alias cu='cd ..'
 alias cb='cd -'
 alias mkdir='mkdir -p'
 alias tree='tree -alC --dirsfirst'
-alias formatImages="exiftool -v '-FileName<CreateDate' -d '%Y%m%d-%H%M%S%%-03.c.%%e' ."
-alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename}.%e" "-filename<${Artist;s!/!_!g} - Untitled.%e" "-filename<Unknown Artist - ${Title;s!/!_!g}.%e" "-filename<${Artist;s!/!_!g} - ${Title;s!/!_!g}.%e" *.m4a'
-alias countFiles='ls -1A | wc -l'
-alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
+alias formatPictures="exiftool -v '-FileName<CreateDate' -d '%Y%m%d-%H%M%S%%-03.c.%%e' ."
+# alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename}.%e" "-filename<${Artist;s!/!_!g} - Untitled.%e" "-filename<Unknown Artist - ${Title;s!/!_!g}.%e" "-filename<${Artist;s!/!_!g} - ${Title;s!/!_!g}.%e" *.m4a'
+# alias countFiles='ls -1A | wc -l'
+# alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
 
 update(){
 	yes | sudo pacman -Syu
 	yes | sudo pacman -Scc
+	# cd ~/
+	# rm -rf linux-config
+	# git clone https://github.com/mason-perdue/linux-config.git
+	# cd - > /dev/zero
 	cd ~/linux-config/config
 	stow -t ~/ --restow --dotfiles *
 	source ~/.bashrc
@@ -52,51 +55,51 @@ docScan(){
 	rmdir tmp
 }
 
-mov2mp4(){
-	for f in *.MOV; do
-		ffmpeg -i $f $f.mp4
-	done
-	rename ".MOV.mp4" ".mp4" *
-	# rm *.MOV
-}
+# mov2mp4(){
+# 	for f in *.MOV; do
+# 		ffmpeg -i $f $f.mp4
+# 	done
+# 	rename ".MOV.mp4" ".mp4" *
+# 	# rm *.MOV
+# }
 
-folder(){
-	# use rename -av "/" "" * to remove slashes and prevent dir creation
-	for f in *; do
-		mkdir "${f%%-*}"
-		mv $f "${f%%-*}"/
-	done
-}
+# folder(){
+# 	# use rename -av "/" "" * to remove slashes and prevent dir creation
+# 	for f in *; do
+# 		mkdir "${f%%-*}"
+# 		mv $f "${f%%-*}"/
+# 	done
+# }
 
-lexe(){
-	if [ -n "$1" ]; then
-		if [ "$1" == "c" ]; then
-			latexmk -c
-		elif [ "$1" == "C" ]; then
-			latexmk -C
-		else
-			latexmk --auxdir=aux --pvc --pdf --view=none "$1"
-		fi
-	else
-		echo "Error: Input file name"
-	fi
-}
+# lexe(){
+# 	if [ -n "$1" ]; then
+# 		if [ "$1" == "c" ]; then
+# 			latexmk -c
+# 		elif [ "$1" == "C" ]; then
+# 			latexmk -C
+# 		else
+# 			latexmk --auxdir=aux --pvc --pdf --view=none "$1"
+# 		fi
+# 	else
+# 		echo "Error: Input file name"
+# 	fi
+# }
 
-gitPush(){
-	if [ -n "$1" ]; then
-		git add --all
-		git commit -m "$1"
-		git push origin main
-	else
-		echo "Error: Input Commit Message"
-	fi
-}
+# gitPush(){
+# 	if [ -n "$1" ]; then
+# 		git add --all
+# 		git commit -m "$1"
+# 		git push origin main
+# 	else
+# 		echo "Error: Input Commit Message"
+# 	fi
+# }
 
-gitCommit(){
-	if [ -n "$1" ]; then
-		git add --all
-		git commit -m "$1"
-	else
-		echo "Error: Input Commit Message"
-	fi
-}
+# gitCommit(){
+# 	if [ -n "$1" ]; then
+# 		git add --all
+# 		git commit -m "$1"
+# 	else
+# 		echo "Error: Input Commit Message"
+# 	fi
+# }
