@@ -1,5 +1,6 @@
 # linux-config
+
 ## Primarily Arch Linux Configuration Files
-* Install Instructions
+* Install & Setup Instructions
 * Dot-Files
 * etc
