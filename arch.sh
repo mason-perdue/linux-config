@@ -24,7 +24,7 @@ ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
 timedatectl set-timezone America/Los_Angeles
 timedatectl set-ntp true
 timedatectl status
-pacman -S vim stow sudo mesa vulkan-dzn vulkan-icd-loader usbutils sudo rsync reflector git htop man-pages man-db tree texlive openssh sane imagemagick perl-image-exiftool # helix ruff bash-language-server texlab evince
+pacman -S vim stow sudo mesa vulkan-dzn vulkan-icd-loader usbutils sudo rsync reflector git htop man-pages man-db tree texlive openssh sane imagemagick perl-image-exiftool usbutils # helix ruff bash-language-server texlab evince
 reflector -c "US" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
 cat /etc/pacman.d/mirrorlist
 vim /etc/locale.gen
