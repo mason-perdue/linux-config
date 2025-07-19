@@ -1,8 +1,8 @@
 # ~/.bashrc
 
-### Do
-# bash-completion
-# vim extensions & config
+# Do
+	# bash-completion
+	# vim extensions & config
 
 # Link Bashrc
 # rm ~/.bashrc
@@ -52,6 +52,7 @@ alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
 
 # Functions
 setupDebian(){
+	echo ""
 	echo "Updating and Installing Packages"
 	echo "Computer Name (w/d/k/a): "
 	read input
@@ -67,7 +68,7 @@ setupDebian(){
 		yes | sudo apt upgrade
 		yes | sudo apt remove --purge vim-common vim-tiny
 		yes | sudo apt autoremove --purge
-		yes | sudo apt install vim usbutils rsync git htop man-db tree texlive-full openssh-client sane imagemagick libimage-exiftool-perl default-jdk nmap
+		yes | sudo apt install vim usbutils rsync git htop man-db tree texlive-full openssh-client sane imagemagick libimage-exiftool-perl default-jdk nmap ffmpeg
 	elif [ "$input" == "d" ]; then
 		echo "Installing Packages for Desktop"
 		echo "Not Configured"
@@ -79,6 +80,7 @@ setupDebian(){
 		echo "Not Configured"
 	fi
 
+	echo ""
 	echo "Configuring Git"
 	echo "Using: /home/masonp/.ssh/id_ed25519.pub"
 	echo "Generate Key With: ssh-keygen -t ed25519 -C '220426478+mason-perdue@users.noreply.github.com'"
@@ -101,6 +103,7 @@ setupDebian(){
 	# git status
 	# git log
 
+	echo ""
 	echo "Configure Latexmk (y/n): "
 	read input
 	if [ "$input" == "y" ]; then
@@ -110,6 +113,7 @@ setupDebian(){
 		echo "$pdf_previewer = 'start evince';" > ~/.latexmk
 	fi
 
+	echo ""
 	echo "Install Openssh Server (y/n): "
 	read input
 	if [ "$input" == "y" ]; then
@@ -119,20 +123,23 @@ setupDebian(){
 		echo "Set: Port 7530"
 		echo "Set: PermitRootLogin no"
 	fi
+
+	echo ""
 }
 
-# update(){
-# 	yes | sudo pacman -Syu
-# 	yes | sudo pacman -Scc
-# 	# cd ~/
-# 	# rm -rf linux-config
-# 	# git clone https://github.com/mason-perdue/linux-config.git
-# 	# cd - > /dev/zero
-# 	cd ~/linux-config/config
-# 	stow -t ~/ --restow --dotfiles *
-# 	source ~/.bashrc
-# 	cd - > /dev/zero
-# }
+updateDebian(){
+	echo ""
+	echo "Updating Packages"
+	yes | sudo apt update
+	yes | sudo apt upgrade
+	yes | sudo apt autoremove --purge
+
+	echo ""
+	echo "Sourcing ~/.bashrc"
+	source ~/.bashrc
+
+	echo ""
+}
 
 myNmap(){
 	# first argument should be target ip addr
@@ -167,54 +174,54 @@ docScan(){
 	rmdir tmp
 }
 
-# mov2mp4(){
-# 	for f in *.MOV; do
-# 		ffmpeg -i $f $f.mp4
-# 	done
-# 	rename ".MOV.mp4" ".mp4" *
-# 	# rm *.MOV
-# }
+mov2mp4(){
+	for f in *.MOV; do
+		ffmpeg -i $f $f.mp4
+	done
+	rename ".MOV.mp4" ".mp4" *
+	rm *.MOV
+}
 
-# folder(){
-# 	# use rename -av "/" "" * to remove slashes and prevent dir creation
-# 	for f in *; do
-# 		mkdir "${f%%-*}"
-# 		mv $f "${f%%-*}"/
-# 	done
-# }
+folderMusic(){
+	rename -av "/" "" *
+	for f in *; do
+		mkdir "${f%%-*}"
+		mv $f "${f%%-*}"/
+	done
+}
 
-# lexe(){
-# 	if [ -n "$1" ]; then
-# 		if [ "$1" == "c" ]; then
-# 			latexmk -c
-# 		elif [ "$1" == "C" ]; then
-# 			latexmk -C
-# 		else
-# 			latexmk --auxdir=aux --pvc --pdf --view=none "$1"
-# 		fi
-# 	else
-# 		echo "Error: Input file name"
-# 	fi
-# }
+lexe(){
+	if [ -n "$1" ]; then
+		if [ "$1" == "c" ]; then
+			latexmk -c
+		elif [ "$1" == "C" ]; then
+			latexmk -C
+		else
+			latexmk --auxdir=aux --pvc --pdf --view=none "$1"
+		fi
+	else
+		echo "Error: Input file name"
+	fi
+}
 
-# gitPush(){
-# 	if [ -n "$1" ]; then
-# 		git add --all
-# 		git commit -m "$1"
-# 		git push origin main
-# 	else
-# 		echo "Error: Input Commit Message"
-# 	fi
-# }
+gitPush(){
+	if [ -n "$1" ]; then
+		git add --all
+		git commit -m "$1"
+		git push origin main
+	else
+		echo "Error: Input Commit Message"
+	fi
+}
 
-# gitCommit(){
-# 	if [ -n "$1" ]; then
-# 		git add --all
-# 		git commit -m "$1"
-# 	else
-# 		echo "Error: Input Commit Message"
-# 	fi
-# }
+gitCommit(){
+	if [ -n "$1" ]; then
+		git add --all
+		git commit -m "$1"
+	else
+		echo "Error: Input Commit Message"
+	fi
+}
 
 # Completion
 if ! shopt -oq posix; then
