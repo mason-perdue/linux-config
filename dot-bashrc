@@ -1,7 +1,6 @@
 # ~/.bashrc
 
 # Do
-	# bash-completion
 	# vim extensions & config
 
 # Link Bashrc
@@ -23,6 +22,9 @@ HISTFILESIZE=2000
 
 # Window Size
 shopt -s checkwinsize
+
+# Auto cd
+shopt -s autocd
 
 # Change Bash Prompt
 PS1='\[\e[32m\]\u\[\e[38;5;26m\]@\h\[\e[0m\] \[\e[38;5;220m\][\w]\[\e[0m\] \[\e[92m\]\$\[\e[0m\] '
@@ -68,7 +70,7 @@ setupDebian(){
 		yes | sudo apt upgrade
 		yes | sudo apt remove --purge vim-common vim-tiny
 		yes | sudo apt autoremove --purge
-		yes | sudo apt install vim usbutils rsync git htop man-db tree texlive-full openssh-client sane imagemagick libimage-exiftool-perl default-jdk nmap ffmpeg
+		yes | sudo apt install vim usbutils rsync git htop man-db tree texlive-full openssh-client sane imagemagick libimage-exiftool-perl default-jdk nmap ffmpeg bash-completion
 	elif [ "$input" == "d" ]; then
 		echo "Installing Packages for Desktop"
 		echo "Not Configured"
