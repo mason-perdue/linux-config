@@ -1,6 +1,6 @@
 # linux-config
 
-## Primarily Arch Linux Configuration Files
+## Debian 12 Linux Configuration Files
 * Install & Setup Instructions
 * Dot-Files
 * etc

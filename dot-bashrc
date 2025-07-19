@@ -1,0 +1,226 @@
+# ~/.bashrc
+
+### Do
+# bash-completion
+# vim extensions & config
+
+# Link Bashrc
+# rm ~/.bashrc
+# ln -s /home/$USER/linux-config/dot-bashrc /home/$USER/.bashrc
+# source ~/.bashrc
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# History Setup
+HISTCONTROL=ignoreboth
+shopt -s histappend
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# Window Size
+shopt -s checkwinsize
+
+# Change Bash Prompt
+PS1='\[\e[32m\]\u\[\e[38;5;26m\]@\h\[\e[0m\] \[\e[38;5;220m\][\w]\[\e[0m\] \[\e[92m\]\$\[\e[0m\] '
+
+# Variables
+export EDITOR='vim'
+
+# Aliases
+alias ls='ls --color=auto'
+alias ll='ls -lA'
+alias la='ls -A'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias ip='ip -c'
+alias cp='cp -r'
+alias cu='cd ..'
+alias cb='cd -'
+alias mkdir='mkdir -p'
+alias tree='tree -alC --dirsfirst'
+alias formatPictures="exiftool -v '-FileName<CreateDate' -d '%Y%m%d-%H%M%S%%-03.c.%%e' ."
+alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename}.%e" "-filename<${Artist;s!/!_!g} - Untitled.%e" "-filename<Unknown Artist - ${Title;s!/!_!g}.%e" "-filename<${Artist;s!/!_!g} - ${Title;s!/!_!g}.%e" *.m4a'
+alias countFiles='ls -1A | wc -l'
+alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
+
+# Functions
+setupDebian(){
+	echo "Updating and Installing Packages"
+	echo "Computer Name (w/d/k/a): "
+	read input
+	if [ "$input" == "w" ]; then
+		# wsl --list --online
+		# wsl --update
+		# wsl --install Debian
+			# set username and password
+		# wsl --shutdown
+		# wsl --unregister Debian
+		echo "Installing Packages for WSL"
+		yes | sudo apt update
+		yes | sudo apt upgrade
+		yes | sudo apt remove --purge vim-common vim-tiny
+		yes | sudo apt autoremove --purge
+		yes | sudo apt install vim usbutils rsync git htop man-db tree texlive-full openssh-client sane imagemagick libimage-exiftool-perl default-jdk nmap
+	elif [ "$input" == "d" ]; then
+		echo "Installing Packages for Desktop"
+		echo "Not Configured"
+	elif [ "$input" == "k" ]; then
+		echo "Installing Packages for KitCom"
+		echo "Not Configured"
+	elif [ "$input" == "a" ]; then
+		echo "Installing Packages for Android"
+		echo "Not Configured"
+	fi
+
+	echo "Configuring Git"
+	echo "Using: /home/masonp/.ssh/id_ed25519.pub"
+	echo "Generate Key With: ssh-keygen -t ed25519 -C '220426478+mason-perdue@users.noreply.github.com'"
+	echo "Configure Git (y/n): "
+	read input
+	if [ "$input" == "y" ]; then
+		chmod 700 ~/.ssh/id*
+		git config --global user.name 'mason-perdue'
+		git config --global user.email '220426478+mason-perdue@users.noreply.github.com'
+		git config --global user.signingkey '/home/masonp/.ssh/id_ed25519.pub'
+		git config --global core.editor vim
+		git config --global init.defaultBranch main
+		git config --global commit.gpgsign true
+		git config --global gpg.format ssh
+	fi
+	# ssh -T git@github.com
+	# git remote add origin git@github.com:mason-perdue/repo.git
+	# git pull origin main
+	# git init
+	# git status
+	# git log
+
+	echo "Configure Latexmk (y/n): "
+	read input
+	if [ "$input" == "y" ]; then
+		echo "Configuring Latexmk"
+		yes | sudo apt install evince
+		touch ~/.latexmk
+		echo "$pdf_previewer = 'start evince';" > ~/.latexmk
+	fi
+
+	echo "Install Openssh Server (y/n): "
+	read input
+	if [ "$input" == "y" ]; then
+		echo "Installing Openssh Server"
+		sudo apt install openssh-server
+		echo "Run: sudoedit /etc/ssh/sshd.config"
+		echo "Set: Port 7530"
+		echo "Set: PermitRootLogin no"
+	fi
+}
+
+# update(){
+# 	yes | sudo pacman -Syu
+# 	yes | sudo pacman -Scc
+# 	# cd ~/
+# 	# rm -rf linux-config
+# 	# git clone https://github.com/mason-perdue/linux-config.git
+# 	# cd - > /dev/zero
+# 	cd ~/linux-config/config
+# 	stow -t ~/ --restow --dotfiles *
+# 	source ~/.bashrc
+# 	cd - > /dev/zero
+# }
+
+myNmap(){
+	# first argument should be target ip addr
+	nmap -v -A -Pn -p 1-65535 "$1"
+}
+
+setupScan(){
+	# usdbipd.exe list
+	#ADMIN-pwsh>  usbipd bind --busid [busid]
+	# usbipd.exe attach --wsl --busid [busid]
+	# lsusb
+	# usbipd.exe detach --busid [busid]
+	usbipd.exe list
+	echo "Enter BUSID (4-3): "
+	read busid
+	usbipd.exe attach --wsl --busid $busid
+	sleep 1
+	lsusb
+	echo "Enter Dev Path (001/003): "
+	read devPath
+	sudo chown masonp:masonp /dev/bus/usb/$devPath
+}
+
+docScan(){
+	mkdir tmp
+	cd tmp
+	scanimage --format=pnm --verbose --progress --resolution=300 --batch=out%03d.pnm --device='fujitsu:ScanSnap S1500:272145' --source 'ADF Duplex'
+	magick out*.pnm -deskew 40% -density 150 -verbose out.pdf
+	mv out.pdf ../
+	rm *.pnm
+	cd ..
+	rmdir tmp
+}
+
+# mov2mp4(){
+# 	for f in *.MOV; do
+# 		ffmpeg -i $f $f.mp4
+# 	done
+# 	rename ".MOV.mp4" ".mp4" *
+# 	# rm *.MOV
+# }
+
+# folder(){
+# 	# use rename -av "/" "" * to remove slashes and prevent dir creation
+# 	for f in *; do
+# 		mkdir "${f%%-*}"
+# 		mv $f "${f%%-*}"/
+# 	done
+# }
+
+# lexe(){
+# 	if [ -n "$1" ]; then
+# 		if [ "$1" == "c" ]; then
+# 			latexmk -c
+# 		elif [ "$1" == "C" ]; then
+# 			latexmk -C
+# 		else
+# 			latexmk --auxdir=aux --pvc --pdf --view=none "$1"
+# 		fi
+# 	else
+# 		echo "Error: Input file name"
+# 	fi
+# }
+
+# gitPush(){
+# 	if [ -n "$1" ]; then
+# 		git add --all
+# 		git commit -m "$1"
+# 		git push origin main
+# 	else
+# 		echo "Error: Input Commit Message"
+# 	fi
+# }
+
+# gitCommit(){
+# 	if [ -n "$1" ]; then
+# 		git add --all
+# 		git commit -m "$1"
+# 	else
+# 		echo "Error: Input Commit Message"
+# 	fi
+# }
+
+# Completion
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
