@@ -70,7 +70,7 @@ setupDebian(){
 		yes | sudo apt upgrade
 		yes | sudo apt remove --purge vim-common vim-tiny
 		yes | sudo apt autoremove --purge
-		yes | sudo apt install gcc gdb gnugo gnuchess curl vim usbutils rsync git htop man-db tree texlive-full openssh-client sane imagemagick libimage-exiftool-perl default-jdk nmap ffmpeg bash-completion octave
+		yes | sudo apt install gcc gdb gnugo gnuchess curl vim usbutils rsync git htop man-db tree texlive-full openssh-client sane imagemagick libimage-exiftool-perl default-jdk nmap ffmpeg bash-completion octave unattended-upgrades
 		curl -fsSL https://install.julialang.org | sh
 	elif [ "$input" == "d" ]; then
 		echo "Installing Packages for Desktop"
@@ -78,7 +78,7 @@ setupDebian(){
 		yes | sudo apt upgrade
 		yes | sudo apt remove --purge vim-common vim-tiny
 		yes | sudo apt autoremove --purge
-		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion sane
+		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion sane unattended-upgrades
 		echo "Install Spotify from: https://www.spotify.com/us/download/linux/"
 	elif [ "$input" == "k" ]; then
 		echo "Installing Packages for KitCom"
@@ -86,7 +86,7 @@ setupDebian(){
 		yes | sudo apt upgrade
 		yes | sudo apt remove --purge vim-common vim-tiny
 		yes | sudo apt autoremove --purge
-		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion sane
+		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion sane unattended-upgrades
 		echo "Install Chrome from: https://www.google.com/chrome/?platform=linux"
 	elif [ "$input" == "a" ]; then
 		echo "Installing Packages for Android"
@@ -94,7 +94,7 @@ setupDebian(){
 		yes | sudo apt upgrade
 		yes | sudo apt remove --purge vim-common vim-tiny
 		yes | sudo apt autoremove --purge
-		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion
+		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion unattended-upgrades
 	fi
 
 	echo ""
