@@ -74,13 +74,27 @@ setupDebian(){
 		curl -fsSL https://install.julialang.org | sh
 	elif [ "$input" == "d" ]; then
 		echo "Installing Packages for Desktop"
-		echo "Not Configured"
+		yes | sudo apt update
+		yes | sudo apt upgrade
+		yes | sudo apt remove --purge vim-common vim-tiny
+		yes | sudo apt autoremove --purge
+		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion sane
+		echo "Install Spotify from: https://www.spotify.com/us/download/linux/"
 	elif [ "$input" == "k" ]; then
 		echo "Installing Packages for KitCom"
-		echo "Not Configured"
+		yes | sudo apt update
+		yes | sudo apt upgrade
+		yes | sudo apt remove --purge vim-common vim-tiny
+		yes | sudo apt autoremove --purge
+		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion sane
+		echo "Install Chrome from: https://www.google.com/chrome/?platform=linux"
 	elif [ "$input" == "a" ]; then
 		echo "Installing Packages for Android"
-		echo "Not Configured"
+		yes | sudo apt update
+		yes | sudo apt upgrade
+		yes | sudo apt remove --purge vim-common vim-tiny
+		yes | sudo apt autoremove --purge
+		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion
 	fi
 
 	echo ""
