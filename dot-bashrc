@@ -70,7 +70,7 @@ setupDebian(){
 		yes | sudo apt upgrade
 		yes | sudo apt remove --purge vim-common vim-tiny
 		yes | sudo apt autoremove --purge
-		yes | sudo apt install curl vim usbutils rsync git htop man-db tree texlive-full openssh-client sane imagemagick libimage-exiftool-perl default-jdk nmap ffmpeg bash-completion octave
+		yes | sudo apt install gnugo gnuchess curl vim usbutils rsync git htop man-db tree texlive-full openssh-client sane imagemagick libimage-exiftool-perl default-jdk nmap ffmpeg bash-completion octave
 		curl -fsSL https://install.julialang.org | sh
 	elif [ "$input" == "d" ]; then
 		echo "Installing Packages for Desktop"
