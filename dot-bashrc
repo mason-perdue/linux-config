@@ -24,7 +24,19 @@ shopt -s checkwinsize
 shopt -s autocd
 
 # Change Bash Prompt
-PS1='\[\e[32m\]\u\[\e[38;5;26m\]@\h\[\e[0m\] \[\e[38;5;220m\][\w]\[\e[0m\] \[\e[92m\]\$\[\e[0m\] '
+# https://bash-prompt-generator.org/
+
+PROMPT_COMMAND='
+  GIT_BRANCH=$(git branch --show-current 2>/dev/null)
+  GIT_STATUS=$(git status --short 2>/dev/null)
+
+  if [ -n "$GIT_BRANCH" ]; then
+    PS1_GIT_INFO=$(printf "%b" "(\e[91m${GIT_BRANCH}\e[0m)\n\e[91m${GIT_STATUS}")
+  else
+    PS1_GIT_INFO=""
+  fi
+'
+PS1='\n\[\e[36m\]\u\[\e[94m\]@\h\[\e[93m\]:\w\[\e[0m\] ${PS1_GIT_INFO}\n\[\e[31m\]\$\[\e[0m\] '
 
 # Variables
 export EDITOR='vim'
