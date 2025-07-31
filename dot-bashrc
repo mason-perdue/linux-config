@@ -1,5 +1,7 @@
 # ~/.bashrc
 
+# DO: vim config
+
 # sudo apt update && sudo apt install curl && rm ~/.bashrc && curl --output ~/.bashrc https://raw.githubusercontent.com/mason-perdue/linux-config/refs/heads/main/dot-bashrc && source .bashrc && setupDebian
 
 # If not running interactively, don't do anything
@@ -169,8 +171,6 @@ updateDebian(){
 	echo ""
 	echo "Sourcing ~/.bashrc"
 	source ~/.bashrc
-
-	echo ""
 }
 
 myNmap(){
@@ -196,14 +196,20 @@ setupScan(){
 }
 
 docScan(){
-	mkdir tmp
-	cd tmp
-	scanimage --format=pnm --verbose --progress --resolution=300 --batch=out%03d.pnm --device='fujitsu:ScanSnap S1500:272145' --source 'ADF Duplex'
-	magick out*.pnm -deskew 40% -density 150 -verbose out.pdf
-	mv out.pdf ../
-	rm *.pnm
-	cd ..
-	rmdir tmp
+	# documents should be face down and upside down
+	if [ -n "$1" ]; then
+		mkdir tmp
+		cd tmp
+		scanimage --format=pnm --verbose --progress --resolution=300 --batch=out%03d.pnm --device='fujitsu:ScanSnap S1500:272145' --source 'ADF Duplex'
+		# sudoedit /etc/ImageMagick*/policy.xml	# change none to read|write for pdf and change memory to 4GiB
+		convert out*.pnm -deskew 40% -density 150 -verbose $1.pdf
+		mv $1.pdf ../
+		# rm *.pnm
+		cd ..
+		# rmdir tmp
+	else
+		echo "Error: Input file name"
+	fi
 }
 
 mov2mp4(){
