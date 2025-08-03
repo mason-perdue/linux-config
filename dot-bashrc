@@ -38,6 +38,7 @@ PS1='\n\[\e[36m\]\u\[\e[94m\]@\h\[\e[93m\]:\w\[\e[0m\] ${PS1_GIT_INFO}\n  \[\e[3
 export EDITOR='vim'
 
 # Aliases
+alias editBash="vim ~/linux-config/dot-bashrc"
 alias ls='ls --color=auto'
 alias ll='ls -lA'
 alias la='ls -A'
@@ -56,6 +57,7 @@ alias formatPictures="exiftool -v '-FileName<CreateDate' -d '%Y%m%d-%H%M%S%%-03.
 alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename}.%e" "-filename<${Artist;s!/!_!g} - Untitled.%e" "-filename<Unknown Artist - ${Title;s!/!_!g}.%e" "-filename<${Artist;s!/!_!g} - ${Title;s!/!_!g}.%e" *.m4a'
 alias countFiles='ls -1A | wc -l'
 alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
+alias combinePDF='convert -density 150 -verbose *.pdf ASUS_Laptop.pdf'
 
 # Functions
 setupDebian(){
