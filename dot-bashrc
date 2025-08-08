@@ -60,6 +60,7 @@ alias formatMusic='exiftool -v "-filename<Unknown Artist - Untitled - ${Filename
 alias countFiles='ls -1A | wc -l'
 alias gitKey='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519'
 alias combinePDF='gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=temp.pdf *'
+alias jrnl='~/vim-journal/jrnl.sh'
 
 # Functions
 setupDebian(){
@@ -140,6 +141,16 @@ setupDebian(){
 	# git init
 	# git log
 	# git diff
+
+	echo ""
+	echo "Configure Vim-Journal (y/n): "
+	read input
+	if [ "$input" == "y" ]; then
+		echo "Configuring Vim-Journal"
+		cd
+		git clone https://github.com/mason-perdue/vim-journal.git
+		chmod +x ~/vim-journal/jrnl.sh
+	fi
 
 	echo ""
 	echo "Configure Latexmk (y/n): "
