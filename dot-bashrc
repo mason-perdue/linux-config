@@ -34,7 +34,7 @@ PROMPT_COMMAND='
   else
     PS1_GIT_INFO=""
   fi'
-PS1='\n\[\e[36m\]\u\[\e[94m\]@\h\[\e[93m\]:\w\[\e[0m\] ${PS1_GIT_INFO}\n  \[\e[31m\]\$\[\e[0m\] '
+PS1='\[\e[36m\]\u\[\e[94m\]@\h\[\e[93m\]:\w\[\e[0m\] ${PS1_GIT_INFO}\n  \[\e[31m\]\$\[\e[0m\] '
 
 # Variables
 export EDITOR='vim'
@@ -175,6 +175,8 @@ updateDebian(){
 	echo ""
 	echo "Sourcing ~/.bashrc"
 	source ~/.bashrc
+
+	echo ""
 }
 
 myNmap(){
