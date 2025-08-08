@@ -1,7 +1,5 @@
 # ~/.bashrc
 
-# DO: vim config
-
 # sudo apt update && sudo apt install curl && rm ~/.bashrc && curl --output ~/.bashrc https://raw.githubusercontent.com/mason-perdue/linux-config/refs/heads/main/dot-bashrc && source .bashrc && setupDebian
 
 # If not running interactively, don't do anything
@@ -28,7 +26,11 @@ PROMPT_COMMAND='
   GIT_BRANCH=$(git branch --show-current 2>/dev/null)
   GIT_STATUS=$(git status --short 2>/dev/null)
   if [ -n "$GIT_BRANCH" ]; then
-    PS1_GIT_INFO=$(printf "%b" "(\e[91m${GIT_BRANCH}\e[0m)\n\e[91m${GIT_STATUS}")
+	if [ -n "$GIT_STATUS" ]; then
+		PS1_GIT_INFO=$(printf "%b" "(\e[91m${GIT_BRANCH}\e[0m)\n\e[91m${GIT_STATUS}")
+	else
+		PS1_GIT_INFO=$(printf "%b" "(\e[91m${GIT_BRANCH}\e[0m)")
+	fi
   else
     PS1_GIT_INFO=""
   fi'
