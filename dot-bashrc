@@ -1,6 +1,6 @@
 # ~/.bashrc
 
-# sudo apt update && sudo apt install curl && rm ~/.bashrc && curl --output ~/.bashrc https://raw.githubusercontent.com/mason-perdue/linux-config/refs/heads/main/dot-bashrc && source .bashrc && setupDebian
+# sudo apt update && sudo apt install -y curl && rm ~/.bashrc && curl --output ~/.bashrc https://raw.githubusercontent.com/mason-perdue/linux-config/refs/heads/main/dot-bashrc && source .bashrc && setupDebian
 
 # If not running interactively, don't do anything
 case $- in
@@ -114,7 +114,7 @@ setupDebian(){
 	echo "Configure Git w/ SSH (y/n): "
 	read input
 	if [ "$input" == "y" ]; then
-		chmod 700 ~/.ssh/id*
+		sudo chmod 700 ~/.ssh/id*
 		git config --global user.name mason-perdue
 		git config --global user.email 220426478+mason-perdue@users.noreply.github.com
 		git config --global user.signingkey /home/$USER/.ssh/id_ed25519.pub
