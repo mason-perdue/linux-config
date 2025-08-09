@@ -1,5 +1,6 @@
 # ~/.bashrc
 
+# sudo dd bs=4M if=debian-*-amd64-netinst.iso of=/dev/disk/by-id/usb-_USB_DISK_3.0_*-0:0 conv=fsync oflag=direct status=progress
 # sudo apt update && sudo apt install -y curl && rm ~/.bashrc && curl --output ~/.bashrc https://raw.githubusercontent.com/mason-perdue/linux-config/refs/heads/main/dot-bashrc && source .bashrc && setupDebian
 
 # If not running interactively, don't do anything
