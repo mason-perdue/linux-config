@@ -159,7 +159,7 @@ setupDebian(){
 		echo "Configuring Latexmk"
 		yes | sudo apt install evince
 		touch ~/.latexmk
-		echo "$pdf_previewer = 'start evince';" > ~/.latexmk
+		echo '$pdf_previewer = "start evince";' > ~/.latexmk
 	fi
 
 	echo ""
