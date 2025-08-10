@@ -89,7 +89,7 @@ setupDebian(){
 		yes | sudo apt upgrade
 		yes | sudo apt remove --purge vim-common vim-tiny
 		yes | sudo apt autoremove --purge
-		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion sane unattended-upgrades
+		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion # sane
 		echo "Install Spotify from: https://www.spotify.com/us/download/linux/"
 	elif [ "$input" == "k" ]; then
 		echo "Installing Packages for KitCom"
@@ -97,7 +97,7 @@ setupDebian(){
 		yes | sudo apt upgrade
 		yes | sudo apt remove --purge vim-common vim-tiny
 		yes | sudo apt autoremove --purge
-		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion sane unattended-upgrades
+		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion # sane
 		echo "Install Chrome from: https://www.google.com/chrome/?platform=linux"
 	elif [ "$input" == "a" ]; then
 		echo "Installing Packages for Android"
