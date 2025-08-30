@@ -77,7 +77,7 @@ setupDebian(){
 		yes | sudo apt upgrade
 		yes | sudo apt remove --purge vim-common vim-tiny
 		yes | sudo apt autoremove --purge
-		yes | sudo apt install curl vim usbutils rsync git htop man-db tree sane imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion unattended-upgrades # gcc gdb gnugo gnuchess texlive-full openssh-client default-jdk octave
+		yes | sudo apt install curl vim usbutils rsync git htop man-db tree sane-utils imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion unattended-upgrades # gcc gdb gnugo gnuchess texlive-full openssh-client default-jdk octave
 		# curl -fsSL https://install.julialang.org | sh
 		# echo "Install Spotify from: https://www.spotify.com/us/download/linux/"
 	elif [ "$input" == "kitcom" ]; then
