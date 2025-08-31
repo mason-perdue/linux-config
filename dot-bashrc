@@ -168,6 +168,7 @@ setupDebian(){
 		sudo firewall-cmd --list-all
 		# add more? gui program? look at kitcom?
 	echo ""
+	fi
 }
 
 updateDebian(){
