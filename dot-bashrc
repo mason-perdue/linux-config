@@ -93,7 +93,7 @@ setupDebian(){
 	echo ""
 	echo "Configuring Git"
 	# echo "Using: /home/$USER/.ssh/id_ed25519.pub"
-	# echo "Generate Key With: ssh-keygen -t ed25519 -C '220426478+mason-perdue@users.noreply.github.com'"
+	# echo "Generate Key With: ssh-keygen -t ed25519 -C '220426478+mason-perdue@users.noreply.github.com' or gpg --full-generate-key (4) and gpg --list-secret-keys and gpg --armor --export [ID] and git config --global user.signingkey [id] and add pinentry-program "/mnt/c/Program Files/Git/usr/bin/pinentry.exe" to ~/.gnupg/gpg-agent.conf"
 	# echo "Configure Git w/ SSH (y/n): "
 	# read input
 	# if [ "$input" == "y" ]; then
@@ -103,7 +103,7 @@ setupDebian(){
 		# git config --global user.signingkey /home/$USER/.ssh/id_ed25519.pub
 		git config --global core.editor vim
 		git config --global init.defaultBranch main
-		# git config --global commit.gpgsign true
+		git config --global commit.gpgsign true
 		# git config --global gpg.format ssh
 	# 	echo "Linking Bashrc"
 	# 	cd
