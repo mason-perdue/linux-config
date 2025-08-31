@@ -86,7 +86,7 @@ setupDebian(){
 		yes | sudo apt upgrade
 		yes | sudo apt remove --purge vim-common vim-tiny
 		yes | sudo apt autoremove --purge
-		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion sane unattended-upgrades
+		yes | sudo apt install vim curl usbutils rsync git htop man-db tree openssh-client imagemagick libimage-exiftool-perl nmap ffmpeg bash-completion sane unattended-upgrades firewalld
 		echo "Install Chrome from: https://www.google.com/chrome/?platform=linux"
 	fi
 
@@ -156,6 +156,17 @@ setupDebian(){
 	# 	echo "Set: PermitRootLogin no"
 	# fi
 
+	echo ""
+	echo "Configure Firewall (y/n): "
+	read input
+	if [ "$input" == "y" ]; then
+		echo "Configuring Firewall"
+		sudo systemctl enable --now firewalld.service
+		sudo firewall-cmd --state
+		sudo firewall-cmd --get-default-zone
+		sudo firewall-cmd --get-active-zones
+		sudo firewall-cmd --list-all
+		# add more? gui program? look at kitcom?
 	echo ""
 }
 
